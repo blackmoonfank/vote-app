@@ -22,7 +22,7 @@ services:
       - backend
 
   vote:
-    image: dockersamples/examplevotingapp_vote
+    image: furqon/voteapp_vote
     ports:
       - 5000:80
     networks:
@@ -31,14 +31,14 @@ services:
       replicas: 2
 
   result:
-    image: dockersamples/examplevotingapp_result
+    image: furqon/voteapp_result
     ports:
       - 5001:80
     networks:
       - backend
 
   worker:
-    image: dockersamples/examplevotingapp_worker
+    image: furqon/voteapp_worker
     networks:
       - frontend
       - backend
