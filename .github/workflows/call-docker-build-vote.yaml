@@ -23,7 +23,7 @@ jobs:
 
     name: Vote Call Docker Build
 
-    uses: dockersamples/.github/.github/workflows/reusable-docker-build.yaml@main
+    uses: blackmoonfank/.github/.github/workflows/reusable-docker-build.yaml@main
 
     permissions:
       contents: read
