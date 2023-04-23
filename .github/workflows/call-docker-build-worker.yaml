@@ -23,7 +23,7 @@ jobs:
 
     name: Worker Call Docker Build
 
-    uses: .github/workflows/reusable-docker-build.yaml@main
+    uses: ./.github/workflows/reusable-docker-build.yaml@main
 
     permissions:
       contents: read
