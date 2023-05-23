@@ -4,51 +4,51 @@ name: Docker Build and Push
 
 on:
 
-# REUSABLE WORKFLOW with INPUTS
+  # REUSABLE WORKFLOW with INPUTS
   # to keep this workflow simple, assumptions are made:
     # - only able to push to Docker Hub and/or GHCR (GHCR by default)
     # - Builds on PR with tag of `prNUMBER` (same tag each PR push)
     # - Builds on push to main branch with tag of `latest`
     # - Builds on tag push with semver
-    
-workflow_call:
-  #allow reuse of this workflow in other repos
-  inputs:
-    dockerhub-enable:
-      description: Log into Docker Hub
-      required: false
-      default: false
-      type: boolean
-    ghcr-enable:
-      description: Log into GHCR
-      required: false
-      default: true
-      type: boolean
-    comment-enable:
-      description: Create a PR comment with image tags and labels
-      required: false
-      default: true
-      type: boolean
-    context:
-      description: Docker context (path) to start build from
-      required: false
-      type: string
-      default: .
-    file:
-      description: Dockerfile to build, relative to context path
-      required: false
-      type: string
-    target:
-      description: Build stage to target
-      required: false
-      type: string
-    platforms:
-      description: Platforms to build for
-      required: false
-      type: string
-      # common ones: linux/amd64,linux/arm64,linux/arm/v7
-      default: linux/amd64
-    image-names:
+
+  workflow_call:
+    # allow reuse of this workflow in other repos
+    inputs:
+      dockerhub-enable:
+        description: Log into Docker Hub
+        required: false
+        default: false
+        type: boolean
+      ghcr-enable:
+        description: Log into GHCR
+        required: false
+        default: true
+        type: boolean
+      comment-enable:
+        description: Create a PR comment with image tags and labels
+        required: false
+        default: true
+        type: boolean
+      context:
+        description: Docker context (path) to start build from
+        required: false
+        type: string
+        default: .
+      file:
+        description: Dockerfile to build, relative to context path
+        required: false
+        type: string
+      target:
+        description: Build stage to target
+        required: false
+        type: string
+      platforms:
+        description: Platforms to build for
+        required: false
+        type: string
+        # common ones: linux/amd64,linux/arm64,linux/arm/v7
+        default: linux/amd64
+      image-names:
         description: A list of the account/repo names for docker build
         required: false
         type: string
@@ -80,11 +80,16 @@ workflow_call:
       dockerhub-token:
         description: Docker Hub token
         required: false
-    
+
     outputs:
       ghcr-tag:
         description: "single-use tag for ghcr.io"
         value: ${{ jobs.build-image.outputs.ghcr-tag }}
+
+
+# permissions: GITHUB_TOKEN are better set by the **calling** workflow
+# but we'll set defaults here for reference
+# https://docs.github.com/en/actions/using-workflows/reusing-workflows#supported-keywords-for-jobs-that-call-a-reusable-workflow
 
 permissions:
   contents: read
